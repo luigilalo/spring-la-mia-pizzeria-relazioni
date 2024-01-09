@@ -12,10 +12,16 @@ import java.time.LocalDateTime;
 @Table(name = "pizza")
 public class Pizza {
     // ATTRIBUTI
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
     private int id;
+    @Column
     private String nome;
+    @Column
     private String descrizione;
+    @Column
     private String foto;
+    @Column
     private Double prezzo;
     // GETTERS AND SETTERS
 
