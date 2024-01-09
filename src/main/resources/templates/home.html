@@ -13,15 +13,15 @@
 </head>
 <body>
 <div class="container">
-  <h1>Lista delle Pizze</h1>
+  <h1 class="text-center">PIZZE</h1>
   <hr>
   <div class="alert alert-info" th:if="${pizzaList.size() == 0}">Non ci sono pizze disponibili.</div>
   <table class="table" th:unless="${pizzaList.size() == 0}">
     <thead>
     <tr>
       <th>Pizza</th>
-      <th>Descrizione</th>
-      <th>Foto:</th>
+      <th>Ingredienti</th>
+      <th></th>
       <th>Prezzo</th>
       <th></th>
     </tr>
@@ -30,10 +30,9 @@
     <tr th:each="pizza : ${pizzaList}">
       <td th:text="${pizza.nome}"></td>
       <td th:text="${pizza.descrizione}"></td>
-      <td th:text="${pizza.foto}"></td>
       <td th:text="${pizza.prezzo}"></td>
       <td>
-        <a class="btn btn-primary" th:href="@{/{id}(id=${pizza.id})}">Dettagli</a>
+        <a class="btn btn-danger" th:href="@{/{id}(id=${pizza.id})}">Dettagli</a>
       </td>
     </tr>
     </tbody>
