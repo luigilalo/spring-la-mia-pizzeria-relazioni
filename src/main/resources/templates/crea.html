@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous">
+    <title>Crea la tua pizza</title>
+</head>
+<body>
+<!-- Attributi: book(Book) -->
+<div class="container">
+    <h1>Crea la tua pizza</h1>
+    <hr>
+    <!-- form mappato sull'oggetto book -->
+    <form
+            id="create-pizza"
+            method="post"
+            th:object="${pizza}"
+            th:action="@{/crea/creaPizza}"
+            >
+        <div class="col-6">
+            <label class="form-label" for="nome">Nome della Pizza</label>
+            <input maxlength="250" class="form-control" type="text" id="nome" th:field="*{nome}"
+                   th:errorClass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-6">
+            <label class="form-label" for="descrizione">Ingredienti</label>
+            <textarea maxlength="250" class="form-control" rows="10"  id="descrizione" th:field="*{descrizione}"></textarea>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('descrizione')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('descrizione')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12">
+            <label class="form-label" for="prezzo">Prezzo</label>
+            <input type="number" min="0" value="0" step=".01" class="form-control" id="prezzo" th:field="*{prezzo}">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Salva</button>
+            <a class="btn btn-primary" th:href="@{/}">Annulla</a>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
