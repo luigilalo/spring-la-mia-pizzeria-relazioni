@@ -6,6 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,14 +20,16 @@ public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
     private int id;
-    @Column
+    @NotEmpty(message = "Il nome non può essere vuoto")
+    @Column(nullable = false)
     private String nome;
     @Column
     private String descrizione;
     @Column
     private String foto;
-    @Column
-    private Double prezzo;
+    @NotNull(message = "Il prezzo non può essere vuoto")
+    @Column(nullable = false)
+    private BigDecimal prezzo;
     // GETTERS AND SETTERS
 
     public int getId() {
@@ -57,11 +64,11 @@ public class Pizza {
         this.foto = foto;
     }
 
-    public Double getPrezzo() {
+    public BigDecimal getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(Double prezzo) {
+    public void setPrezzo(BigDecimal prezzo) {
         this.prezzo = prezzo;
     }
 }

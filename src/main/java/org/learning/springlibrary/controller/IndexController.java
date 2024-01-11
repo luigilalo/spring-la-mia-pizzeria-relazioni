@@ -1,14 +1,14 @@
 package org.learning.springlibrary.controller;
 
+import jakarta.validation.Valid;
 import org.learning.springlibrary.model.Pizza;
 import org.learning.springlibrary.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class IndexController {
             return "details";
         } else {
             // gestisco il caso in cui nel database un Book con quell'id non c'è
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with id " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza with id " + id + " not found");
         }
     }
     // metodo che restituisce la pagina di modifica del Book
@@ -63,6 +63,26 @@ public class IndexController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
         }
     }
+    // metodo che riceve il submit del form di edit
+    @PostMapping("/modifica/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza ,
+                         BindingResult bindingResult) {
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            Pizza pizzaModificata = result.get();
+            // valido i dati del libro
+            if (bindingResult.hasErrors()) {
+                // se ci sono errori di validazione
+                return "/modifica";
+            }
+            // se sono validi salvo il libro su db
 
+            Pizza savedBook = pizzaRepository.save(formPizza);
+            // faccio la redirect alla pagina di dettaglio del libro
+            return "redirect:/" + id;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "PIZZA WITH" + id + " not found");
+        }
+    }
 
 }
