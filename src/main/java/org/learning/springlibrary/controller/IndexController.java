@@ -48,6 +48,21 @@ public class IndexController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with id " + id + " not found");
         }
     }
+    // metodo che restituisce la pagina di modifica del Book
+    @GetMapping("/modifica/{id}")
+    public String modificaPizza(@PathVariable Integer id, Model model) {
+        // recupero il libro da database
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        // verifico se il Book è presente
+        if (result.isPresent()) {
+            // lo passo come attributo del Model
+            model.addAttribute("pizza", result.get());
+            // ritorno il template
+            return "/modifica";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
+        }
+    }
 
 
 }
