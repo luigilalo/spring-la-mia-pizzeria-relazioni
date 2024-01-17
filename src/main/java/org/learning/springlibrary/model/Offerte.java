@@ -16,7 +16,6 @@ public class Offerte {
     @NotNull
     private LocalDate startDate;
     private LocalDate expireDate;
-    private LocalDate returnDate;
     @Lob
     private String titolo;
     @ManyToOne
@@ -44,14 +43,6 @@ public class Offerte {
 
     public void setExpireDate(LocalDate expireDate) {
         this.expireDate = expireDate;
-    }
-
-    public LocalDate getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
     }
 
     public String getTitolo() {

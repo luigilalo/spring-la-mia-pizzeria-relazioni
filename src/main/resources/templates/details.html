@@ -25,6 +25,7 @@
     <section class="mt-5">
         <h3>
             <span>OFFERTE SPECIALI</span>
+            <a th:href="@{/offertespeciali/crea(pizzaId=${pizza.id})}" class="btn btn-primary">Nuova Offerta</a>
         </h3>
         <table class="table" th:if="${pizza.offerteSpeciali.size() > 0}">
             <thead>
