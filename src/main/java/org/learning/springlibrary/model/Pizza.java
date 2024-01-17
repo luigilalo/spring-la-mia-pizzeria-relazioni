@@ -1,17 +1,12 @@
 package org.learning.springlibrary.model;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pizza")
@@ -71,4 +66,16 @@ public class Pizza {
     public void setPrezzo(BigDecimal prezzo) {
         this.prezzo = prezzo;
     }
+
+    public List<Offerte> getOfferteSpeciali() {
+        return offerteSpeciali;
+    }
+
+    public void setOfferteSpeciali(List<Offerte> offerteSpeciali) {
+        this.offerteSpeciali = offerteSpeciali;
+    }
+
+    @OneToMany(mappedBy = "pizza", orphanRemoval = true)
+    // no nuova relazione, l'avevo già definita sull'attributo book di Borrowing
+    private List<Offerte> offerteSpeciali;
 }
